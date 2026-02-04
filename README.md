@@ -2,6 +2,8 @@
 
 ShroomLoc is a Python project and potential API designed to help users identify mushrooms based on their location, season, and local environmental conditions.
 
+ShroomLoc uses our own mushroom json dataset, which includes scientific and common names, edibility, seasonality, temperature and humidity preferences, habitats, and notes.
+
 ---
 
 ## Features
@@ -65,8 +67,6 @@ Example entry in `mushrooms.json`:
 - Add more mushrooms to the dataset.
 - Improve habitat detection using more granular OSM queries.
 - Add image fallback to Wikimedia Commons or Mushroom.ID.
-
-
 
 ---
 
