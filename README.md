@@ -1,51 +1,117 @@
-# ShroomLoc
+# ShroomLoc 
 
-ShroomLoc is a Python project and potential API designed to help users identify mushrooms based on their location, season, and local environmental conditions.
+ShroomLoc is a **Dockerized REST API** built with **FastAPI** that helps
+identify mushrooms based on geographic location and environmental
+conditions.
 
-ShroomLoc uses our own mushroom json dataset, which includes scientific and common names, edibility, seasonality, temperature and humidity preferences, habitats, and notes.
+It relies on a curated mushroom JSON dataset including scientific and
+common names, edibility, seasonality, temperature and humidity
+preferences, habitats, and notes.
 
----
+------------------------------------------------------------------------
 
 ## Features
 
-- **Location detection:** Automatically determines your approximate location via IP.
-- **Weather integration:** Fetches current temperature and humidity using multiple APIs (wttr.in, Open-Meteo).
-- **Season detection:** Determines the current season.
-- **Biotope estimation:** Suggests probable habitats for mushrooms based on weather, season, and OpenStreetMap data.
-- **Mushroom filtering:** Lists mushrooms that match the current conditions (temperature, humidity, season, and habitat).
-- **Images:** Retrieves images for mushrooms via iNaturalist.
-- **JSON output:** Ready-to-use JSON data for API integration.
+-   **REST API (FastAPI)**
+-   **Docker-ready**
+-   **Location-based mushroom suggestion**
+-   **Weather integration** (wttr.in, Open-Meteo)
+-   **Season detection**
+-   **Biotope estimation** using weather + OpenStreetMap
+-   **Mushroom filtering** (temperature, humidity, season, habitat)
+-   **Image retrieval** via iNaturalist
+-   **Swagger documentation** (`/docs`)
 
----
+------------------------------------------------------------------------
 
-## Requirements
+## API Endpoints
 
-- Python 3.8+
-- Requests library
+### `GET /mushrooms`
 
-Install dependencies:
-```bash
-pip install requests
+Returns mushrooms matching environmental conditions at a given location.
+
+**Query parameters** - `latitude` (float, required) - `longitude`
+(float, required)
+
+**Example**
+
+    GET /mushrooms?latitude=47.989921&longitude=0.29065708
+
+------------------------------------------------------------------------
+
+### `GET /mushrooms/all`
+
+Returns the complete mushroom dataset.
+
+**Example**
+
+    GET /mushrooms/all
+
+------------------------------------------------------------------------
+
+## 🐳 Docker Usage
+
+### Build the image
+
+``` bash
+docker build -t shroomloc-api .
 ```
 
----
+### Run the container
 
-## Usage
-
-1. **Run the main program:**
-```bash
-python shroomloc.py
+``` bash
+docker run -p 8000:8000 shroomloc-api
 ```
 
-2. **Check the filtered mushrooms:**
-The script prints mushrooms that match your local conditions along with their images.
+### Access API
 
----
+-   Swagger UI: http://127.0.0.1:8000/docs
+-   API root: http://127.0.0.1:8000
 
-## JSON Dataset Structure
+------------------------------------------------------------------------
 
-Example entry in `mushrooms.json`:
-```json
+## Local Development (without Docker)
+
+### Requirements
+
+-   Python 3.9+
+-   pip
+
+### Install dependencies
+
+``` bash
+pip install -r requirements.txt
+```
+
+### Run API
+
+``` bash
+uvicorn app.main:app --reload
+```
+
+------------------------------------------------------------------------
+
+## Project Structure
+
+    shroomloc/
+    ├── app/
+    │   ├── main.py
+    │   ├── shroomloc.py
+    │   ├── mushrooms_cleaned.json
+    │   └── __init__.py
+    ├── tests/
+    │   └── test_shroomloc.py
+    ├── utils/
+    ├── Dockerfile
+    ├── README.md
+
+------------------------------------------------------------------------
+
+## Dataset Structure
+
+Example entry in `mushrooms_cleaned.json`:
+
+``` json
 {
   "scientific_name": "Pleurotus ostreatus",
   "common_name": "Pleurote en huître",
@@ -59,16 +125,17 @@ Example entry in `mushrooms.json`:
 }
 ```
 
----
+------------------------------------------------------------------------
 
 ## Future Plans
 
-- Expose the functionality as a REST API.
-- Add more mushrooms to the dataset.
-- Improve habitat detection using more granular OSM queries.
-- Add image fallback to Wikimedia Commons or Mushroom.ID.
+-   Pagination & filtering for `/mushrooms/all`
+-   Pydantic response models
+-   API versioning (`/v1`)
+-   Caching external API calls
+-   Auth & rate limiting
+-   Public deployment
 
----
+------------------------------------------------------------------------
 
-Created by Maelig Pesantez.
-
+Created by **Maelig Pesantez**
