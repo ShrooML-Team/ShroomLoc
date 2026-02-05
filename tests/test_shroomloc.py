@@ -1,4 +1,10 @@
 import unittest
+import sys
+import os
+
+# Ajouter le répertoire parent au path pour permettre l'import d'app
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from app.shroomloc import get_mushrooms
 
 class TestGetMushrooms(unittest.TestCase):
