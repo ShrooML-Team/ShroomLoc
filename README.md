@@ -49,7 +49,7 @@ Returns the complete mushroom dataset.
 
 ------------------------------------------------------------------------
 
-## 🐳 Docker Usage
+## Docker Usage
 
 ### Build the image
 
