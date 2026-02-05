@@ -4,7 +4,7 @@ ShroomLoc is a **Dockerized REST API** built with **FastAPI** that helps
 identify mushrooms based on geographic location and environmental
 conditions.
 
-It relies on a curated mushroom JSON dataset including scientific and
+It relies on our own curated mushroom JSON dataset including scientific and
 common names, edibility, seasonality, temperature and humidity
 preferences, habitats, and notes.
 
