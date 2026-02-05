@@ -1,23 +1,40 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException, Depends
 from pathlib import Path
 from typing import List, Dict
+from fastapi.security import OAuth2PasswordRequestForm
 
 from app.shroomloc import get_mushrooms, get_all_mushrooms
+from app.auth import verify_password, create_access_token, get_current_user
+from app.db import SessionLocal, User, init_db
+
+init_db()
+
 
 app = FastAPI(
     title="ShroomLoc API",
-    version="0.1.0",
+    version="0.2.0",
     description="Mushroom location and identification API"
 )
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "mushrooms_cleaned.json"
 
+@app.post("/login")
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    db = SessionLocal()
+    user = db.query(User).filter(User.username == form_data.username).first()
+    db.close()
+    if not user or not verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    token = create_access_token({"sub": user.username})
+
+    return {"access_token": token, "token_type": "bearer"}
 
 @app.get("/mushrooms", response_model=List[Dict])
 def mushrooms(
     latitude: float = Query(..., ge=-90, le=90),
     longitude: float = Query(..., ge=-180, le=180),
+    current_user: User = Depends(get_current_user)
 ) -> List[Dict]:
     """
     Return a list of mushrooms filtered by environmental conditions
@@ -35,7 +52,7 @@ def mushrooms(
 
 
 @app.get("/mushrooms/all", response_model=List[Dict])
-def list_all_mushrooms() -> List[Dict]:
+def list_all_mushrooms(current_user: User = Depends(get_current_user)) -> List[Dict]:
     """
     Return the full list of mushrooms from the dataset.
 
