@@ -27,3 +27,6 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+
+# Ignore database files
+*.db
