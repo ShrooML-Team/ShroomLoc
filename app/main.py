@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Query
 from pathlib import Path
 
-from app.shroomloc import get_mushrooms
+from app.shroomloc import get_mushrooms, get_all_mushrooms
 
 app = FastAPI(
     title="ShroomLoc API",
@@ -19,3 +19,7 @@ def mushrooms(
     longitude: float = Query(..., ge=-180, le=180),
 ):
     return get_mushrooms(latitude, longitude, DATA_FILE)
+
+@app.get("/mushrooms/all")
+def list_all_mushrooms():
+    return get_all_mushrooms()

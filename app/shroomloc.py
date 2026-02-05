@@ -252,3 +252,12 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
         })
     
     return api_data
+
+# ----------------------------------------
+# 8. Préparation JSON pour API (full JSON)
+# ----------------------------------------
+
+def get_all_mushrooms(json_path="app/mushrooms_cleaned.json"):
+    """Retourne la liste complète des champignons"""
+    with open(json_path, "r", encoding="utf-8") as f:
+        return json.load(f)
