@@ -99,6 +99,19 @@ jobs:
                   # Ici vous pouvez ajouter des steps pour déployer sur votre infrastructure
                   # Par exemple: kubectl, docker-compose sur un serveur, etc.
 
+            # Exemple de déploiement vers un serveur distant (à décommenter et configurer)
+            # - name: Deploy to server
+            #   uses: appleboy/ssh-action@v1.0.0
+            #   with:
+            #     host: ${{ secrets.HOST }}
+            #     username: ${{ secrets.USERNAME }}
+            #     key: ${{ secrets.SSH_KEY }}
+            #     script: |
+            #       docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            #       docker stop shroomloc || true
+            #       docker rm shroomloc || true
+            #       docker run -d --name shroomloc -p 8000:8000 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
     create-release:
         needs: build-and-push
         runs-on: ubuntu-latest
@@ -124,15 +137,4 @@ jobs:
                     Voir les notes générées automatiquement ci-dessous.
 
 
-        # Exemple de déploiement vers un serveur distant (à décommenter et configurer)
-        # - name: Deploy to server
-        #   uses: appleboy/ssh-action@v1.0.0
-        #   with:
-        #     host: ${{ secrets.HOST }}
-        #     username: ${{ secrets.USERNAME }}
-        #     key: ${{ secrets.SSH_KEY }}
-        #     script: |
-        #       docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-        #       docker stop shroomloc || true
-        #       docker rm shroomloc || true
-        #       docker run -d --name shroomloc -p 8000:8000 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        

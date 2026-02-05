@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  shroomloc:
+    image: ghcr.io/shrooml-team/shroomloc:latest
+    container_name: shroomloc-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - shroomloc_data:/app/data
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      # Optionnel: modifier le chemin de la DB
+      # - DATABASE_URL=sqlite:///./data/shroomloc.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  shroomloc_data:
+    driver: local

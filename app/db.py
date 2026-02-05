@@ -3,7 +3,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
 
-DATABASE_URL = "sqlite:///./shroomloc.db"
+import os
+
+# regarde si la varible d'environnement DATABASE_URL est définie, sinon utilise une base de données SQLite locale
+if "DATABASE_URL" in os.environ:
+    DATABASE_URL = os.environ["DATABASE_URL"]
+else:
+    DATABASE_URL = "sqlite:///./data/shroomloc.db"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
