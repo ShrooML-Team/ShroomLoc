@@ -13,6 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copie du code
 COPY app ./app
+COPY healthcheck.py .
+
+# Rendre le script healthcheck exécutable
+RUN chmod +x healthcheck.py
 
 # Port exposé
 EXPOSE 8000
