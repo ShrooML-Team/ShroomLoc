@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import random
 import os
+import json
 
 # -----------------------------
 # 1. Mock de la localisation
@@ -24,9 +25,6 @@ def get_approx_location():
     print("Utilisation de coordonnées par défaut (Bois de Changé)")
     return 47.989921, 0.29065708
 
-lat, lon = get_approx_location()
-
-
 # -----------------------------
 # 2. Récupération météo
 # -----------------------------
@@ -48,7 +46,6 @@ def get_weather(lat, lon):
                 data = requests.get(url, timeout=5).json()
                 temp = float(data["current_condition"][0]["temp_C"])
                 hum = float(data["current_condition"][0]["humidity"])
-                print("Météo récupérée via wttr.in")
                 return temp, hum
 
             elif api == "open-meteo":
@@ -56,21 +53,14 @@ def get_weather(lat, lon):
                 data = requests.get(url, timeout=5).json()
                 temp = data["current_weather"]["temperature"]
                 hum = data["hourly"]["relativehumidity_2m"][0]
-                print("Météo récupérée via Open-Meteo")
                 return temp, hum
 
         except Exception as e:
-            print(f"Échec API {api}: {e}")
             continue
 
-    print("Toutes les API ont échoué, utilisation de valeurs par défaut")
     temp = 10.0
     hum = 80.0
     return temp, hum
-
-temperature, humidity = get_weather(lat, lon)
-print(f"Température : {temperature}°C, Humidité : {humidity}%")
-
 
 # -----------------------------
 # 3. Détermination de la saison
@@ -88,13 +78,9 @@ def get_season(date=None):
     else:
         return "autumn"
 
-current_season = get_season()
-print(f"Saison actuelle : {current_season}")
-
 # -----------------------------
 # 4. Détermination du biotope
 # -----------------------------
-import random
 
 # Habitats canoniques correspondant à ton dataset
 CANONICAL_HABITATS = {
@@ -140,24 +126,21 @@ def determine_biotope(temperature, humidity, season):
         "bois mort"
     ])
 
-
-# Overpass API pour raffiner le biotope autour du point (50m radius)
-overpass_url = "http://overpass-api.de/api/interpreter"
-query = f"""
-[out:json];
-(
-  way(around:50,{lat},{lon})["landuse"];
-  way(around:50,{lat},{lon})["natural"];
-);
-out tags;
-"""
-
-biotope_candidates = []
-
-try:
-    response = requests.get(overpass_url, params={"data": query}, timeout=10)
-    if response.status_code == 200:
-        try:
+def refine_biotope_osm(lat, lon):
+    """Raffine le biotope via Overpass autour du point donné"""
+    overpass_url = "http://overpass-api.de/api/interpreter"
+    query = f"""
+    [out:json];
+    (
+      way(around:50,{lat},{lon})["landuse"];
+      way(around:50,{lat},{lon})["natural"];
+    );
+    out tags;
+    """
+    biotope_candidates = []
+    try:
+        response = requests.get(overpass_url, params={"data": query}, timeout=10)
+        if response.status_code == 200:
             data = response.json()
             for element in data.get("elements", []):
                 tags = element.get("tags", {})
@@ -165,56 +148,37 @@ try:
                     biotope_candidates.append("forêt")
                 elif tags.get("landuse") == "meadow":
                     biotope_candidates.append("prairie")
-        except ValueError:
-            print("Erreur JSON Overpass, fallback sur biotope météo/saison")
-    else:
-        print(f"Overpass API renvoie le status {response.status_code}, fallback sur biotope météo/saison")
-except requests.exceptions.RequestException as e:
-    print(f"Erreur requête Overpass: {e}, fallback sur biotope météo/saison")
+    except requests.exceptions.RequestException:
+        pass
 
-# Choisir un biotope si OSM a renvoyé quelque chose
-if biotope_candidates:
-    biotope = random.choice(biotope_candidates)
-    # Remplacer le générique "forêt" par un type précis
-    if biotope == "forêt":
-        biotope = random.choice([
-            "forêt de feuillus",
-            "forêt de conifères",
-            "forêt mixte"
-        ])
-else:
-    # fallback météo/saison
-    biotope = determine_biotope(temperature, humidity, current_season)
+    if biotope_candidates:
+        biotope = random.choice(biotope_candidates)
+        if biotope == "forêt":
+            biotope = random.choice([
+                "forêt de feuillus",
+                "forêt de conifères",
+                "forêt mixte"
+            ])
+        return biotope
+    return None  # pas de données OSM
 
-print(f"Biotope estimé via OSM ou météo : {biotope}")
 
 # -----------------------------
 # 5. Filtrage des champignons
 # -----------------------------
-import json
 
-with open("mushrooms.json", "r", encoding="utf-8") as f:
-    champignons = json.load(f)
-
-# Filtrage selon température, humidité, saison et biotope
-filtered = []
-for champ in champignons:
-    temp_ok = champ["min_temp"] <= temperature <= champ["max_temp"]
-    humidity_ok = champ["min_humidity"] <= humidity
-    season_ok = current_season in champ["season"]
-    habitat_ok = biotope in champ["habitat"]
-    
-    if temp_ok and humidity_ok and season_ok and habitat_ok:
-        filtered.append(champ)
-
-print(f"\nChampignons possibles selon la météo et le biotope :")
-for champ in filtered:
-    print(f"- {champ['common_name']} ({champ['scientific_name']}) [{champ['edibility']}]")
+def filter_mushrooms(champignons, temperature, humidity, season, biotope):
+    filtered = []
+    for champ in champignons:
+        temp_ok = champ["min_temp"] <= temperature <= champ["max_temp"]
+        humidity_ok = champ["min_humidity"] <= humidity
+        season_ok = season in champ["season"]
+        habitat_ok = biotope in champ["habitat"]
+        if temp_ok and humidity_ok and season_ok and habitat_ok:
+            filtered.append(champ)
+    return filtered
 
 
-# -----------------------------
-# 6. Récupération images via mushroom.id
-# -----------------------------
 # -----------------------------
 # 6. Récupération images via iNaturalist
 # -----------------------------
@@ -251,63 +215,40 @@ def get_mushroom_image(species_name="Amanita muscaria"):
         print(f"Erreur image iNaturalist pour '{species_name}': {e}")
         return None
 
-
-print("\nImages associées :")
-
-# Cas 1 : champignons trouvés
-if filtered:
-    for champ in filtered:
-        species = champ["scientific_name"]
-        image_url = get_mushroom_image(species)
-
-        if image_url:
-            print(f"- {species} → {image_url}")
-        else:
-            print(f"- {species} → aucune image trouvée")
-
-# Cas 2 : aucun champignon → fallback Amanita muscaria
-else:
-    fallback_species = "Amanita muscaria"
-    image_url = get_mushroom_image(fallback_species)
-
-    if image_url:
-        print(f"- {fallback_species} (fallback) → {image_url}")
-    else:
-        print(f"- {fallback_species} → aucune image trouvée")
-
 # -----------------------------
 # 7. Préparation JSON pour API
 # -----------------------------
 
-import json
+def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
+    temperature, humidity = get_weather(lat, lon)
+    season = get_season()
+    biotope = refine_biotope_osm(lat, lon)
+    if biotope is None:
+        biotope = determine_biotope(temperature, humidity, season)
 
-# Crée la liste des champignons avec nom scientifique et image
-api_data = []
-
-# Cas 1 : champignons trouvés
-if filtered:
-    for champ in filtered:
-        species = champ["scientific_name"]
-        image_url = get_mushroom_image(species)
+    with open(file, "r", encoding="utf-8") as f:
+        champignons = json.load(f)
+    
+    filtered = filter_mushrooms(champignons, temperature, humidity, season, biotope)
+    
+    api_data = []
+    if filtered:
+        for champ in filtered:
+            image_url = get_mushroom_image(champ["scientific_name"])
+            api_data.append({
+                "scientific_name": champ["scientific_name"],
+                "common_name": champ["common_name"],
+                "edibility": champ["edibility"],
+                "image_url": image_url
+            })
+    else:
+        fallback_species = "Amanita muscaria"
+        image_url = get_mushroom_image(fallback_species)
         api_data.append({
-            "scientific_name": species,
-            "common_name": champ["common_name"],
-            "edibility": champ["edibility"],
-            "image_url": image_url if image_url else None
+            "scientific_name": fallback_species,
+            "common_name": "Amanite tue-mouches",
+            "edibility": "non-edible",
+            "image_url": image_url
         })
-
-# Cas 2 : aucun champignon → fallback Amanita muscaria
-else:
-    fallback_species = "Amanita muscaria"
-    image_url = get_mushroom_image(fallback_species)
-    api_data.append({
-        "scientific_name": fallback_species,
-        "common_name": "Amanite tue-mouches",
-        "edibility": "non-edible",
-        "image_url": image_url if image_url else None
-    })
-
-# Pour l'instant, on print juste le JSON formaté
-api_json = json.dumps(api_data, indent=2, ensure_ascii=False)
-print("\nJSON prêt pour API :")
-print(api_json)
+    
+    return api_data
