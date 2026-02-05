@@ -5,13 +5,15 @@ import os
 import json
 
 # -----------------------------
-# 1. Mock de la localisation
+# 1. Mock of localisation
 # -----------------------------
 
 def get_approx_location():
-    """Récupère une localisation approximative depuis l'IP"""
+    """
+    Returns an approximate latitude and longitude based on the user's IP address.
+    If the IP-based location cannot be determined, returns default coordinates (Bois de Changé
+    """
     try:
-        # ipinfo.io
         res = requests.get("https://ipinfo.io/json", timeout=5).json()
         loc = res.get("loc", None)
         if loc:
@@ -21,19 +23,22 @@ def get_approx_location():
     except Exception as e:
         print(f"Impossible d'obtenir la localisation depuis IP: {e}")
     
-    # fallback sur coordonnées par défaut
     print("Utilisation de coordonnées par défaut (Bois de Changé)")
     return 47.989921, 0.29065708
 
 # -----------------------------
-# 2. Récupération météo
+# 2. Retrival of weather data
 # -----------------------------
 # Utilisation de OpenWeatherMap (API gratuite nécessite une clé)
 
 def get_weather(lat, lon):
-    """Récupère température et humidité via plusieurs API sans clé"""
+    """
+    Returns the current temperature and humidity for the given latitude and longitude.
+    Tries multiple APIs for robustness. If all fail, returns default values.
+    param lat: Latitude of the location
+    param lon: Longitude of the location
+    """
     
-    # Liste d'API à tester successivement
     apis = [
         "wttr", 
         "open-meteo"
@@ -63,9 +68,13 @@ def get_weather(lat, lon):
     return temp, hum
 
 # -----------------------------
-# 3. Détermination de la saison
+# 3. Determination of the season
 # -----------------------------
 def get_season(date=None):
+    """
+    Returns the current season based on the month of the given date.
+    param date: Optional datetime object. If None, uses current date.
+    """
     if date is None:
         date = datetime.now()
     month = date.month
@@ -79,10 +88,9 @@ def get_season(date=None):
         return "autumn"
 
 # -----------------------------
-# 4. Détermination du biotope
+# 4. Determination of the biotope
 # -----------------------------
 
-# Habitats canoniques correspondant à ton dataset
 CANONICAL_HABITATS = {
     "forêt de feuillus",
     "forêt de conifères",
@@ -97,26 +105,24 @@ CANONICAL_HABITATS = {
 
 def determine_biotope(temperature, humidity, season):
     """
-    Détermine le biotope le plus probable en fonction de la météo et de la saison,
-    aligné avec les habitats canoniques de ton dataset.
+    Determine a likely biotope based on temperature, humidity, and season.
+    This is a heuristic function that can be refined with more complex logic or ML.
+    param temperature: Current temperature
+    param humidity: Current humidity
+    param season: Current season (e.g., 'spring', 'summer', 'autumn', 'winter')
     """
-    # Bois morts ou lisières humides si forte humidité et basse température
     if humidity >= 75 and temperature <= 15:
         return random.choice(["bois mort", "lisière"])
     
-    # Forêt de conifères si température modérée et humidité moyenne
     elif 15 <= temperature <= 25 and 50 <= humidity <= 75:
         return "forêt de conifères"
     
-    # Forêt de feuillus si saison printanière ou automnale et humidité moyenne
     elif season in ["spring", "autumn"] and 50 <= humidity <= 80:
         return "forêt de feuillus"
     
-    # Prairies si temps chaud et humide modéré
     elif temperature > 20 and humidity < 70:
         return "prairie"
     
-    # Fallback aléatoire si aucune condition ne matche parfaitement
     return random.choice([
         "forêt de feuillus",
         "forêt de conifères",
@@ -127,7 +133,11 @@ def determine_biotope(temperature, humidity, season):
     ])
 
 def refine_biotope_osm(lat, lon):
-    """Raffine le biotope via Overpass autour du point donné"""
+    """
+    Refines the biotope using OpenStreetMap data around the given latitude and longitude.
+    param lat: Latitude of the location
+    param lon: Longitude of the location
+    """
     overpass_url = "http://overpass-api.de/api/interpreter"
     query = f"""
     [out:json];
@@ -160,14 +170,22 @@ def refine_biotope_osm(lat, lon):
                 "forêt mixte"
             ])
         return biotope
-    return None  # pas de données OSM
+    return None
 
 
 # -----------------------------
-# 5. Filtrage des champignons
+# 5. Filtering mushrooms based on conditions
 # -----------------------------
 
 def filter_mushrooms(champignons, temperature, humidity, season, biotope):
+    """
+    Filters the list of mushrooms based on the given environmental conditions.
+    param champignons: List of mushroom dicts with keys 'min_temp', 'max_temp', 'min_humidity', 'season', 'habitat'
+    param temperature: Current temperature
+    param humidity: Current humidity
+    param season: Current season (e.g., 'spring', 'summer', 'autumn
+    param biotope: Current biotope (e.g., 'forêt de feuillus')
+    """
     filtered = []
     for champ in champignons:
         temp_ok = champ["min_temp"] <= temperature <= champ["max_temp"]
@@ -180,12 +198,14 @@ def filter_mushrooms(champignons, temperature, humidity, season, biotope):
 
 
 # -----------------------------
-# 6. Récupération images via iNaturalist
+# 6. Retrieval of mushroom images from iNaturalist
 # -----------------------------
 
 def get_mushroom_image(species_name="Amanita muscaria"):
     """
-    Récupère une image depuis iNaturalist à partir du nom scientifique
+    Returns a URL of an image for the given mushroom species from iNaturalist.
+    If no image is found, returns None.
+    param species_name: Scientific name of the mushroom species
     """
     url = "https://api.inaturalist.org/v1/observations"
     params = {
@@ -208,7 +228,6 @@ def get_mushroom_image(species_name="Amanita muscaria"):
         if not photos:
             return None
 
-        # Remplace "square" par "medium" ou "large"
         return photos[0]["url"].replace("square", "large")
 
     except Exception as e:
@@ -216,10 +235,16 @@ def get_mushroom_image(species_name="Amanita muscaria"):
         return None
 
 # -----------------------------
-# 7. Préparation JSON pour API
+# 7. Preparation of JSON for API (filtered JSON)
 # -----------------------------
 
 def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
+    """
+    Returns a list of mushrooms filtered by environmental conditions at the given latitude and longitude.
+    param lat: Latitude of the location
+    param lon: Longitude of the location
+    param file: Path to the cleaned mushrooms JSON file
+    """
     temperature, humidity = get_weather(lat, lon)
     season = get_season()
     biotope = refine_biotope_osm(lat, lon)
@@ -254,10 +279,13 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
     return api_data
 
 # ----------------------------------------
-# 8. Préparation JSON pour API (full JSON)
+# 8. Preparation of cleaned JSON (normalization of habitats)
 # ----------------------------------------
 
 def get_all_mushrooms(json_path="app/mushrooms_cleaned.json"):
-    """Retourne la liste complète des champignons"""
+    """
+    Returns the full list of mushrooms from the cleaned JSON file.
+    param json_path: Path to the cleaned mushrooms JSON file
+    """
     with open(json_path, "r", encoding="utf-8") as f:
         return json.load(f)

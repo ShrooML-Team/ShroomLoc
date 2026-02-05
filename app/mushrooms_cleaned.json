@@ -626,7 +626,7 @@
   {
     "scientific_name": "Inonotus obliquus",
     "common_name": "Chaga",
-    "edibility": "inedible",
+    "edibility": "non-edible",
     "season": [
       "spring",
       "summer",
@@ -661,7 +661,7 @@
   {
     "scientific_name": "Ganoderma lucidum",
     "common_name": "Reishi",
-    "edibility": "inedible",
+    "edibility": "non-edible",
     "season": [
       "summer",
       "autumn"
