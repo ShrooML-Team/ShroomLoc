@@ -102,7 +102,9 @@ jobs:
     create-release:
         needs: build-and-push
         runs-on: ubuntu-latest
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') 
+        permissions: 
+            contents: write
 
         steps:
             - name: Create GitHub Release
