@@ -1,5 +1,8 @@
 # ShroomLoc 
 
+[![Build and Deploy Docker](https://github.com/ShrooML-Team/ShroomLoc/workflows/Build%20and%20Deploy%20Docker/badge.svg)](https://github.com/ShrooML-Team/ShroomLoc/actions)
+[![Docker Image](https://ghcr-badge.herokuapp.com/shrooml-team/shroomloc/latest_tag?trim=major&label=Docker%20Image&color=blue)](https://github.com/ShrooML-Team/ShroomLoc/pkgs/container/shroomloc)
+
 ShroomLoc is a **Dockerized REST API** built with **FastAPI** that helps
 identify mushrooms based on geographic location and environmental
 conditions.
