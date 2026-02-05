@@ -89,12 +89,42 @@ jobs:
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
 
         steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              
+            - name: Update docker-compose.yml with new tag
+              if: startsWith(github.ref, 'refs/tags/v')
+              run: |
+                  TAG_NAME=${GITHUB_REF#refs/tags/}
+                  echo "Mise à jour du docker-compose.yml avec le tag: $TAG_NAME"
+                  
+                  # Met à jour la valeur par défaut dans docker-compose.yml
+                  sed -i "s|\${IMAGE_TAG:-.*}|\${IMAGE_TAG:-$TAG_NAME}|" docker-compose.yml
+                  
+                  # Met aussi à jour stack.env pour cohérence
+                  sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$TAG_NAME/" stack.env
+                  
+                  echo "Fichiers mis à jour:"
+                  echo "- docker-compose.yml : $(grep 'IMAGE_TAG:-' docker-compose.yml)"
+                  echo "- stack.env : $(grep 'IMAGE_TAG=' stack.env)"
+                  
+            - name: Commit updated files
+              if: startsWith(github.ref, 'refs/tags/v')
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  git add docker-compose.yml stack.env
+                  git commit -m "🤖 Auto-update to ${GITHUB_REF#refs/tags/}" || exit 0
+                  git push origin HEAD:master || echo "Pas de changements à pousser"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Deploy notification
               run: |
                   echo "🚀 Image Docker déployée avec succès!"
                   echo "📦 Registry: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-                  echo "🏷️  Tags disponibles:"
-                  echo "${{ needs.build-and-push.outputs.tags }}"
+                  echo "🏷️  Tag utilisé: ${GITHUB_REF#refs/tags/}"
+                  echo "📝 stack.env mis à jour automatiquement"
 
                   # Ici vous pouvez ajouter des steps pour déployer sur votre infrastructure
                   # Par exemple: kubectl, docker-compose sur un serveur, etc.

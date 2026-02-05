@@ -2,24 +2,24 @@ version: '3.8'
 
 services:
   shroomloc:
-    image: ghcr.io/shrooml-team/shroomloc:latest
-    container_name: shroomloc-api
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAME:-shrooml-team/shroomloc}:${IMAGE_TAG:-latest}
+    container_name: ${CONTAINER_NAME:-shroomloc-api}
     ports:
-      - "8000:8000"
+      - "${HOST_PORT:-8000}:${API_PORT:-8000}"
     volumes:
-      - shroomloc_data:/app/data
+      - shroomloc_data:${DATA_PATH:-/app/data}
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
       # Optionnel: modifier le chemin de la DB
-      # - DATABASE_URL=sqlite:///./data/shroomloc.db
-    restart: unless-stopped
+      # - DATABASE_URL=${DATABASE_URL}
+    restart: ${RESTART_POLICY:-unless-stopped}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ["CMD", "curl", "-f", "http://localhost:${API_PORT:-8000}/docs"]
+      interval: ${HEALTHCHECK_INTERVAL:-30s}
+      timeout: ${HEALTHCHECK_TIMEOUT:-10s}
+      retries: ${HEALTHCHECK_RETRIES:-3}
+      start_period: ${HEALTHCHECK_START_PERIOD:-40s}
 
 volumes:
   shroomloc_data:
