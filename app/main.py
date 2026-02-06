@@ -2,8 +2,9 @@ from fastapi import FastAPI, Query, HTTPException, Depends
 from pathlib import Path
 from typing import List, Dict
 from fastapi.security import OAuth2PasswordRequestForm
+import urllib.parse
 
-from app.shroomloc import get_mushrooms, get_all_mushrooms
+from app.shroomloc import get_mushrooms, get_all_mushrooms, get_mushroom_details_by_name
 from app.auth import verify_password, create_access_token, get_current_user
 from app.db import SessionLocal, User, init_db
 
@@ -60,3 +61,21 @@ def list_all_mushrooms(current_user: User = Depends(get_current_user)) -> List[D
         List[Dict]: List of all mushrooms with their properties.
     """
     return get_all_mushrooms()
+
+@app.get("/mushrooms/{name}", response_model=Dict)
+def get_mushroom_by_name(name: str, current_user: User = Depends(get_current_user)) -> Dict:
+    """
+    Return details of a specific mushroom by its scientific or common name.
+
+    Args:
+        name (str): Scientific or common name of the mushroom to search for.
+    returns:
+        Dict: Details of the mushroom if found, otherwise an error message.
+    """
+    decoded_name = urllib.parse.unquote(name)
+    mushroom = get_mushroom_details_by_name(decoded_name)
+    if mushroom:
+        return mushroom
+    else:
+        raise HTTPException(status_code=404, detail="Mushroom not found")
+

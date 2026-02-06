@@ -289,3 +289,24 @@ def get_all_mushrooms(json_path="app/mushrooms_cleaned.json"):
     """
     with open(json_path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+# ----------------------------------------
+# 9. Retrieval of mushroom details by mushroom name (for API details endpoint)
+# ----------------------------------------
+
+def get_mushroom_details_by_name(scientific_name, json_path="app/mushrooms_cleaned.json"):
+    """
+    Returns the details of a mushroom given its scientific name.
+    param scientific_name: Scientific name of the mushroom
+    param json_path: Path to the cleaned mushrooms JSON file
+    """
+    with open(json_path, "r", encoding="utf-8") as f:
+        champignons = json.load(f)
+    
+    for champ in champignons:
+        if champ["scientific_name"].lower() == scientific_name.lower():
+            image_url = get_mushroom_image(champ["scientific_name"])
+            champ["image_url"] = image_url
+            return champ
+    
+    return None
