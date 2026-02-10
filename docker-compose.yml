@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   shroomloc:
-    image: ghcr.io/shrooml-team/shroomloc:latest
+    image: ghcr.io/shrooml-team/shroomloc:${IMAGE_TAG:-latest}
     container_name: shroomloc-api
     ports:
       - "63001:8000"
