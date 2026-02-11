@@ -13,7 +13,9 @@
       "forêt de feuillus",
       "forêt mixte"
     ],
-    "notes": "Très recherché, comestible."
+    "notes": "Très recherché, comestible.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Cantharellus cibarius",
@@ -30,12 +32,14 @@
       "forêt de conifères",
       "forêt de feuillus"
     ],
-    "notes": "Champignon comestible courant."
+    "notes": "Champignon comestible courant.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Amanita phalloides",
     "common_name": "Amanite phalloïde",
-    "edibility": "deadly",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -46,7 +50,9 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Champignon mortel."
+    "notes": "Champignon mortel.",
+    "toxicity": "deadly",
+    "psychoactive": false
   },
   {
     "scientific_name": "Pleurotus ostreatus",
@@ -62,7 +68,9 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Souvent trouvé sur bois mort."
+    "notes": "Souvent trouvé sur bois mort.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Macrolepiota procera",
@@ -79,7 +87,9 @@
       "lisière",
       "prairie"
     ],
-    "notes": "Grand champignon comestible."
+    "notes": "Grand champignon comestible.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Morchella esculenta",
@@ -95,12 +105,14 @@
       "forêts claires",
       "prairie"
     ],
-    "notes": "Très appréciée au printemps."
+    "notes": "Très appréciée au printemps.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Amanita muscaria",
     "common_name": "Amanite tue-mouches",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -112,7 +124,9 @@
       "forêt de conifères",
       "forêt mixte"
     ],
-    "notes": "Toxique avec effets perturbants."
+    "notes": "Toxique avec effets perturbants.",
+    "toxicity": "toxic",
+    "psychoactive": true
   },
   {
     "scientific_name": "Amanita caesarea",
@@ -128,7 +142,9 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Excellent comestible."
+    "notes": "Excellent comestible.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Russula cyanoxantha",
@@ -144,12 +160,14 @@
     "habitat": [
       "forêt mixte"
     ],
-    "notes": "Russule courante et comestible."
+    "notes": "Russule courante et comestible.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Russula emetica",
     "common_name": "Russule émétique",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -160,7 +178,9 @@
     "habitat": [
       "forêts humides"
     ],
-    "notes": "Provoque des troubles digestifs."
+    "notes": "Provoque des troubles digestifs.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Lepista nuda",
@@ -176,12 +196,14 @@
       "forêts",
       "lisière"
     ],
-    "notes": "Comestible agréable."
+    "notes": "Comestible agréable.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Suillellus luridus",
     "common_name": "Bolet luisant",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -192,7 +214,9 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Toxique, à éviter."
+    "notes": "Toxique, à éviter.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Chroogomphus rutilus",
@@ -208,7 +232,9 @@
     "habitat": [
       "forêt de conifères"
     ],
-    "notes": "Comestible correct."
+    "notes": "Comestible correct.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Tricholoma equestre",
@@ -224,7 +250,9 @@
       "forêt de conifères",
       "forêt mixte"
     ],
-    "notes": "Comestible (débat sur toxicité longue)."
+    "notes": "Comestible (débat sur toxicité longue).",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Agaricus campestris",
@@ -240,7 +268,9 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Comestible courant."
+    "notes": "Comestible courant.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Agaricus bisporus",
@@ -256,7 +286,9 @@
       "prairie",
       "zones urbaines"
     ],
-    "notes": "Cultivé, parfois trouvé à l’état sauvage."
+    "notes": "Cultivé, parfois trouvé à l’état sauvage.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Calocybe gambosa",
@@ -271,7 +303,9 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Printanier."
+    "notes": "Printanier.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hygrophoropsis aurantiaca",
@@ -287,27 +321,14 @@
     "habitat": [
       "forêts"
     ],
-    "notes": "Goût médiocre."
-  },
-  {
-    "scientific_name": "Armillaria mellea",
-    "common_name": "Armillaire couleur de miel",
-    "edibility": "edible",
-    "season": [
-      "autumn"
-    ],
-    "min_temp": 8,
-    "max_temp": 22,
-    "min_humidity": 70,
-    "habitat": [
-      "bois mort"
-    ],
-    "notes": "Comestible après cuisson."
+    "notes": "Goût médiocre.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Inocybe geophylla",
     "common_name": "Inocybe blanc",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -318,7 +339,9 @@
     "habitat": [
       "forêts"
     ],
-    "notes": "Fortement toxique."
+    "notes": "Fortement toxique.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Laccaria laccata",
@@ -334,12 +357,14 @@
     "habitat": [
       "forêts"
     ],
-    "notes": "Petit champignon comestible."
+    "notes": "Petit champignon comestible.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Clitocybe nebularis",
     "common_name": "Clitocybe nébuleux",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "autumn"
     ],
@@ -349,7 +374,9 @@
     "habitat": [
       "forêts"
     ],
-    "notes": "Toxique pour beaucoup."
+    "notes": "Toxique pour beaucoup.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Coprinus comatus",
@@ -365,7 +392,9 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Bonne comestibilité fraîche."
+    "notes": "Bonne comestibilité fraîche.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Leccinum scabrum",
@@ -382,7 +411,9 @@
       "forêt de feuillus",
       "lisière"
     ],
-    "notes": "Comestible, souvent sous les bouleaux."
+    "notes": "Comestible, souvent sous les bouleaux.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Clitopilus prunulus",
@@ -398,12 +429,14 @@
       "forêt de feuillus",
       "lisière"
     ],
-    "notes": "Comestible agréable, odeur farineuse."
+    "notes": "Comestible agréable, odeur farineuse.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hypholoma fasciculare",
     "common_name": "Tête jaune",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "autumn"
     ],
@@ -413,12 +446,14 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Toxique, à éviter."
+    "notes": "Toxique, à éviter.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Gymnopilus junonius",
     "common_name": "Gymnopile élégant",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -429,7 +464,9 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Toxique ou psychotrope selon variété."
+    "notes": "Toxique ou psychotrope selon variété.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Boletus aereus",
@@ -446,7 +483,9 @@
       "forêt de conifères",
       "forêt de feuillus"
     ],
-    "notes": "Très recherché, comestible de qualité."
+    "notes": "Très recherché, comestible de qualité.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Calvatia gigantea",
@@ -463,7 +502,9 @@
       "lisière",
       "prairie"
     ],
-    "notes": "Comestible jeune, très gros champignon."
+    "notes": "Comestible jeune, très gros champignon.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Lactarius deliciosus",
@@ -478,7 +519,9 @@
     "habitat": [
       "forêt de conifères"
     ],
-    "notes": "Comestible de qualité, couleur orange caractéristique."
+    "notes": "Comestible de qualité, couleur orange caractéristique.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Russula vesca",
@@ -495,7 +538,9 @@
       "forêt mixte",
       "lisière"
     ],
-    "notes": "Petite russule comestible, goût agréable."
+    "notes": "Petite russule comestible, goût agréable.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Boletus pinophilus",
@@ -511,7 +556,9 @@
     "habitat": [
       "forêt de conifères"
     ],
-    "notes": "Très bon comestible, sous pins."
+    "notes": "Très bon comestible, sous pins.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Flammulina velutipes",
@@ -527,7 +574,9 @@
       "bois mort",
       "lisière"
     ],
-    "notes": "Pousse en hiver sur bois de feuillus morts. Espèce connue sous le nom d’enoki en culture."
+    "notes": "Pousse en hiver sur bois de feuillus morts. Espèce connue sous le nom d’enoki en culture.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hypholoma capnoides",
@@ -543,12 +592,14 @@
       "bois mort",
       "lisière"
     ],
-    "notes": "Petit champignon en touffes sur bois morts, hiver."
+    "notes": "Petit champignon en touffes sur bois morts, hiver.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Panellus stipticus",
     "common_name": "Panellus visqueux",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "winter"
     ],
@@ -559,7 +610,9 @@
       "bois mort",
       "lisière"
     ],
-    "notes": "Rare, pousse en hiver sur bois humide."
+    "notes": "Rare, pousse en hiver sur bois humide.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Craterellus cornucopioides",
@@ -574,7 +627,9 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Excellent comestible, très recherché."
+    "notes": "Excellent comestible, très recherché.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hydnum repandum",
@@ -590,7 +645,9 @@
       "forêt de feuillus",
       "forêt mixte"
     ],
-    "notes": "Chair ferme, aiguillons sous le chapeau."
+    "notes": "Chair ferme, aiguillons sous le chapeau.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Lepista personata",
@@ -606,7 +663,9 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Comestible tardif, très commun."
+    "notes": "Comestible tardif, très commun.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Sparassis crispa",
@@ -621,12 +680,14 @@
     "habitat": [
       "forêt de conifères"
     ],
-    "notes": "Excellent comestible, aspect de chou-fleur."
+    "notes": "Excellent comestible, aspect de chou-fleur.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Inonotus obliquus",
     "common_name": "Chaga",
-    "edibility": "non-edible",
+    "edibility": "inedible",
     "season": [
       "spring",
       "summer",
@@ -640,7 +701,9 @@
       "bois mort",
       "forêt de feuillus"
     ],
-    "notes": "Champignon médicinal, non comestible cru."
+    "notes": "Champignon médicinal, non comestible cru.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hericium erinaceus",
@@ -656,12 +719,14 @@
       "bois mort",
       "forêt de feuillus"
     ],
-    "notes": "Lion’s Mane, comestible et médicinal."
+    "notes": "Lion’s Mane, comestible et médicinal.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Ganoderma lucidum",
     "common_name": "Reishi",
-    "edibility": "non-edible",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -672,12 +737,14 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Champignon médicinal, très dur."
+    "notes": "Champignon médicinal, très dur.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Galerina marginata",
     "common_name": "Galère marginée",
-    "edibility": "deadly",
+    "edibility": "inedible",
     "season": [
       "autumn"
     ],
@@ -687,12 +754,14 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Mortelle, contient des amatoxines."
+    "notes": "Mortelle, contient des amatoxines.",
+    "toxicity": "deadly",
+    "psychoactive": false
   },
   {
     "scientific_name": "Cortinarius orellanus",
     "common_name": "Cortinaire couleur de rocou",
-    "edibility": "deadly",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -703,12 +772,14 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Toxique mortel à effet retardé."
+    "notes": "Toxique mortel à effet retardé.",
+    "toxicity": "deadly",
+    "psychoactive": false
   },
   {
     "scientific_name": "Entoloma sinuatum",
     "common_name": "Entolome livide",
-    "edibility": "poisonous",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -720,12 +791,14 @@
       "forêt de feuillus",
       "lisière"
     ],
-    "notes": "Responsable d’intoxications sévères."
+    "notes": "Responsable d’intoxications sévères.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Amanita citrina",
     "common_name": "Amanite citrine",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -737,12 +810,14 @@
       "forêt de feuillus",
       "forêt mixte"
     ],
-    "notes": "Souvent confondue avec des amanites comestibles."
+    "notes": "Souvent confondue avec des amanites comestibles.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Boletus luridus",
     "common_name": "Bolet blafard",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -753,12 +828,14 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Toxique cru, bleuit fortement à la coupe."
+    "notes": "Toxique cru, bleuit fortement à la coupe.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Mycena rosea",
     "common_name": "Mycène rose",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "autumn"
     ],
@@ -769,7 +846,9 @@
       "forêt de feuillus",
       "sol"
     ],
-    "notes": "Petit champignon rose toxique."
+    "notes": "Petit champignon rose toxique.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Clavulina cristata",
@@ -786,7 +865,9 @@
       "forêt",
       "forêt de feuillus"
     ],
-    "notes": "Champignon en forme de corail."
+    "notes": "Champignon en forme de corail.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Fistulina hepatica",
@@ -803,7 +884,9 @@
       "bois mort",
       "forêt de feuillus"
     ],
-    "notes": "Chair rouge rappelant le foie, comestible jeune."
+    "notes": "Chair rouge rappelant le foie, comestible jeune.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hygrophorus eburneus",
@@ -818,12 +901,14 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Glissant par temps humide."
+    "notes": "Glissant par temps humide.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Paxillus involutus",
     "common_name": "Paxille enroulé",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -836,7 +921,9 @@
       "forêt de conifères",
       "forêt de feuillus"
     ],
-    "notes": "Longtemps cru comestible, toxique cumulatif."
+    "notes": "Longtemps cru comestible, toxique cumulatif.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Suillus luteus",
@@ -852,7 +939,9 @@
     "habitat": [
       "forêt de conifères"
     ],
-    "notes": "Comestible après retrait de la cuticule."
+    "notes": "Comestible après retrait de la cuticule.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Amanita rubescens",
@@ -869,12 +958,14 @@
       "forêt de feuillus",
       "forêt mixte"
     ],
-    "notes": "Comestible bien cuite, rougit à la coupe."
+    "notes": "Comestible bien cuite, rougit à la coupe.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Gyromitra esculenta",
     "common_name": "Gyromitre",
-    "edibility": "deadly",
+    "edibility": "inedible",
     "season": [
       "spring"
     ],
@@ -885,7 +976,9 @@
       "forêt de conifères",
       "sol"
     ],
-    "notes": "Champignon mortel malgré des usages anciens."
+    "notes": "Champignon mortel malgré des usages anciens.",
+    "toxicity": "deadly",
+    "psychoactive": false
   },
   {
     "scientific_name": "Hygrocybe coccinea",
@@ -901,11 +994,13 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Petit champignon rouge vif."
+    "notes": "Petit champignon rouge vif.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Marasmius oreades",
-    "common_name": "Faux mousseron",
+    "common_name": "Faux mousseron, Marasme des Oréades",
     "edibility": "edible",
     "season": [
       "spring",
@@ -918,12 +1013,14 @@
     "habitat": [
       "prairie"
     ],
-    "notes": "Pousse en ronds de sorcières."
+    "notes": "Pousse en ronds de sorcières.",
+    "toxicity": "none",
+    "psychoactive": false
   },
   {
     "scientific_name": "Inocybe erubescens",
     "common_name": "Inocybe de Patouillard",
-    "edibility": "deadly",
+    "edibility": "inedible",
     "season": [
       "spring",
       "summer"
@@ -934,12 +1031,14 @@
     "habitat": [
       "forêt de feuillus"
     ],
-    "notes": "Très toxique, contient de la muscarine."
+    "notes": "Très toxique, contient de la muscarine.",
+    "toxicity": "deadly",
+    "psychoactive": false
   },
   {
     "scientific_name": "Coprinopsis atramentaria",
     "common_name": "Coprin noir d'encre",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "spring",
       "autumn"
@@ -951,12 +1050,14 @@
       "prairie",
       "zones urbaines"
     ],
-    "notes": "Toxique avec l’alcool."
+    "notes": "Toxique avec l’alcool.",
+    "toxicity": "toxic",
+    "psychoactive": false
   },
   {
     "scientific_name": "Trametes versicolor",
     "common_name": "Polypore versicolore",
-    "edibility": "non-edible",
+    "edibility": "inedible",
     "season": [
       "spring",
       "summer",
@@ -969,6 +1070,433 @@
     "habitat": [
       "bois mort"
     ],
-    "notes": "Champignon coriace utilisé en médecine traditionnelle."
+    "notes": "Champignon coriace utilisé en médecine traditionnelle.",
+    "toxicity": "toxic",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Psilocybe semilanceata",
+    "common_name": "Psilocybe lancéolé",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 8,
+    "max_temp": 20,
+    "min_humidity": 75,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Champignon hallucinogène contenant de la psilocybine."
+  },
+  {
+    "scientific_name": "Psilocybe cubensis",
+    "common_name": "Psilocybe cubensis",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 18,
+    "max_temp": 30,
+    "min_humidity": 80,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Espèce hallucinogène tropicale."
+  },
+  {
+    "scientific_name": "Psilocybe cyanescens",
+    "common_name": "Psilocybe bleuissant",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 10,
+    "max_temp": 22,
+    "min_humidity": 80,
+    "habitat": [
+      "zones urbaines",
+      "bois mort"
+    ],
+    "notes": "Hallucinogène puissant, bleuit au toucher."
+  },
+  {
+    "scientific_name": "Psilocybe azurescens",
+    "common_name": "Psilocybe azur",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 8,
+    "max_temp": 20,
+    "min_humidity": 80,
+    "habitat": [
+      "forêts",
+      "bois mort"
+    ],
+    "notes": "Très forte concentration en psilocybine."
+  },
+  {
+    "scientific_name": "Panaeolus cyanescens",
+    "common_name": "Panaeole bleuissant",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 20,
+    "max_temp": 32,
+    "min_humidity": 85,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Champignon coprophile hallucinogène."
+  },
+  {
+    "scientific_name": "Psilocybe mexicana",
+    "common_name": "Psilocybe mexicain",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 18,
+    "max_temp": 28,
+    "min_humidity": 80,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Utilisé traditionnellement par les peuples mésoaméricains."
+  },
+  {
+    "scientific_name": "Psilocybe baeocystis",
+    "common_name": "Psilocybe à spores épaisses",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 8,
+    "max_temp": 20,
+    "min_humidity": 75,
+    "habitat": [
+      "forêts humides"
+    ],
+    "notes": "Hallucinogène modéré."
+  },
+  {
+    "scientific_name": "Gymnopilus luteofolius",
+    "common_name": "Gymnopile jaune-violet",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer",
+      "autumn"
+    ],
+    "min_temp": 12,
+    "max_temp": 25,
+    "min_humidity": 70,
+    "habitat": [
+      "bois mort"
+    ],
+    "notes": "Contient des composés psychoactifs."
+  },
+  {
+    "scientific_name": "Pluteus salicinus",
+    "common_name": "Plutée des saules",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 15,
+    "max_temp": 25,
+    "min_humidity": 75,
+    "habitat": [
+      "bois mort"
+    ],
+    "notes": "Contient de la psilocybine."
+  },
+  {
+    "scientific_name": "Inocybe aeruginascens",
+    "common_name": "Inocybe bleu-vert",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 15,
+    "max_temp": 25,
+    "min_humidity": 70,
+    "habitat": [
+      "forêt de feuillus"
+    ],
+    "notes": "Rare, psychoactif."
+  },
+  {
+    "scientific_name": "Psilocybe tampanensis",
+    "common_name": "Psilocybe de Tampan",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 20,
+    "max_temp": 30,
+    "min_humidity": 80,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Produit aussi des sclérotes psychoactives."
+  },
+  {
+    "scientific_name": "Psilocybe caerulescens",
+    "common_name": "Psilocybe bleuté",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 18,
+    "max_temp": 28,
+    "min_humidity": 80,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Espèce mésoaméricaine psychoactive."
+  },
+  {
+    "scientific_name": "Psilocybe stuntzii",
+    "common_name": "Psilocybe de Stuntz",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 10,
+    "max_temp": 20,
+    "min_humidity": 75,
+    "habitat": [
+      "zones urbaines"
+    ],
+    "notes": "Hallucinogène faible à modéré."
+  },
+  {
+    "scientific_name": "Psilocybe hoogshagenii",
+    "common_name": "Psilocybe de Hoogshagen",
+    "edibility": "inedible",
+    "toxicity": "toxic",
+    "psychoactive": true,
+    "season": [
+      "summer"
+    ],
+    "min_temp": 18,
+    "max_temp": 28,
+    "min_humidity": 80,
+    "habitat": [
+      "prairie"
+    ],
+    "notes": "Espèce sacramentelle traditionnelle."
+  },
+  {
+    "scientific_name": "Armillaria mellea",
+    "common_name": "Armillaire couleur de miel (syn. Armillaria mellea group)",
+    "edibility": "edible",
+    "season": ["autumn"],
+    "min_temp": 10,
+    "max_temp": 25,
+    "min_humidity": 70,
+    "habitat": ["bois mort", "forêt de feuillus"],
+    "notes": "Souvent en grappes sur bois mort ou arbres vivants.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Laetiporus sulphureus",
+    "common_name": "Polypore soufré",
+    "edibility": "edible",
+    "season": ["summer", "autumn"],
+    "min_temp": 15,
+    "max_temp": 30,
+    "min_humidity": 60,
+    "habitat": ["bois mort", "tronc d'arbre"],
+    "notes": "Comestible jeune, texture charnue, goût de poulet.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Armillaria mellea var. gallica",
+    "common_name": "Armillaire de Galice",
+    "edibility": "edible",
+    "season": ["autumn"],
+    "min_temp": 10,
+    "max_temp": 25,
+    "min_humidity": 70,
+    "habitat": ["bois mort", "forêt de feuillus"],
+    "notes": "Variante d'Armillaire, bonne comestibilité.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Hygrophorus russula",
+    "common_name": "Hygrophore rougissant",
+    "edibility": "edible",
+    "season": ["autumn"],
+    "min_temp": 10,
+    "max_temp": 22,
+    "min_humidity": 65,
+    "habitat": ["forêt de feuillus", "forêt mixte"],
+    "notes": "Comestible, chapeau rose à rouge, à ne pas confondre avec des toxiques.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Amanita vaginata",
+    "common_name": "Amanite vaginée",
+    "edibility": "edible",
+    "season": [
+      "summer",
+      "autumn"
+    ],
+    "min_temp": 12,
+    "max_temp": 25,
+    "min_humidity": 60,
+    "habitat": [
+      "forêt de feuillus",
+      "forêt mixte"
+    ],
+    "notes": "Comestible mais à identifier avec précaution, souvent confondue avec d'autres Amanites.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Rubroboletus satanas",
+    "common_name": "Bolet satan",
+    "edibility": "toxic",
+    "season": [
+      "summer",
+      "autumn"
+    ],
+    "min_temp": 15,
+    "max_temp": 28,
+    "min_humidity": 70,
+    "habitat": [
+      "forêt de feuillus",
+      "forêts humides"
+    ],
+    "notes": "Bolet rare, très toxique, à éviter absolument.",
+    "toxicity": "poisonous",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Hericium coralloides",
+    "common_name": "Hydne cornu",
+    "edibility": "edible",
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 10,
+    "max_temp": 22,
+    "min_humidity": 80,
+    "habitat": [
+      "bois mort",
+      "forêt de feuillus"
+    ],
+    "notes": "Comestible, ressemble au Sparassis mais plus ramifié, pousse sur bois morts.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Clitocybe odora",
+    "common_name": "Clitocybe odorant",
+    "edibility": "edible",
+    "season": [
+      "summer",
+      "autumn"
+    ],
+    "min_temp": 12,
+    "max_temp": 25,
+    "min_humidity": 65,
+    "habitat": [
+      "forêt de feuillus",
+      "prairie",
+      "lisière"
+    ],
+    "notes": "Comestible, odeur d'anis très caractéristique.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Lactarius sanguifluus",
+    "common_name": "Lactaire sanguin",
+    "edibility": "edible",
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 12,
+    "max_temp": 22,
+    "min_humidity": 70,
+    "habitat": [
+      "forêt de conifères",
+      "forêt mixte"
+    ],
+    "notes": "Comestible, lait rougeâtre qui tache, souvent sous pins ou sapins.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Piptoporus betulinus",
+    "common_name": "Polypore du bouleau",
+    "edibility": "medicinal",
+    "season": [
+      "autumn",
+      "winter"
+    ],
+    "min_temp": 0,
+    "max_temp": 20,
+    "min_humidity": 70,
+    "habitat": [
+      "bois mort",
+      "tronc d'arbre"
+    ],
+    "notes": "Polypore médicinal, pousse sur les troncs de bouleau morts ou malades.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Pleurotus eryngii",
+    "common_name": "Pleurote du panicaut",
+    "edibility": "edible",
+    "season": [
+      "autumn"
+    ],
+    "min_temp": 10,
+    "max_temp": 22,
+    "min_humidity": 70,
+    "habitat": [
+      "prairie",
+      "lisière",
+      "bois mort"
+    ],
+    "notes": "Comestible, souvent appelé 'King Oyster', pousse au sol près de racines de panicaut.",
+    "toxicity": "none",
+    "psychoactive": false
   }
 ]

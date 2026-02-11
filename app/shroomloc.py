@@ -260,20 +260,33 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
     if filtered:
         for champ in filtered:
             image_url = get_mushroom_image(champ["scientific_name"])
+
+            recipe = None
+            if champ["edibility"] == "edible":
+                recipe = get_mushroom_recipe()
+
             api_data.append({
                 "scientific_name": champ["scientific_name"],
                 "common_name": champ["common_name"],
                 "edibility": champ["edibility"],
-                "image_url": image_url
+                "toxicity": champ["toxicity"],
+                "psychoactive": champ["psychoactive"],
+                "image_url": image_url,
+                "recipe": recipe
             })
+
+
     else:
         fallback_species = "Amanita muscaria"
         image_url = get_mushroom_image(fallback_species)
         api_data.append({
-            "scientific_name": fallback_species,
-            "common_name": "Amanite tue-mouches",
-            "edibility": "non-edible",
-            "image_url": image_url
+            "scientific_name": champ["scientific_name"],
+            "common_name": champ["common_name"],
+            "edibility": champ["edibility"],
+            "toxicity": champ["toxicity"],
+            "psychoactive": champ["psychoactive"],
+            "image_url": image_url,
+            "recipe": recipe
         })
     
     return api_data
@@ -291,7 +304,7 @@ def get_all_mushrooms(json_path="app/mushrooms_cleaned.json"):
         return json.load(f)
 
 # ----------------------------------------
-# 9. Retrieval of mushroom details by mushroom name (for API details endpoint)
+# 9. Retrieval of mushroom details by mushroom name
 # ----------------------------------------
 
 def get_mushroom_details_by_name(scientific_name, json_path="app/mushrooms_cleaned.json"):
@@ -310,3 +323,50 @@ def get_mushroom_details_by_name(scientific_name, json_path="app/mushrooms_clean
             return champ
     
     return None
+
+# ----------------------------------------
+# 10. Get meals for a given mushroom 
+# ----------------------------------------
+
+def get_mushroom_recipe():
+    """
+    Returns a random mushroom-based recipe from TheMealDB.
+    """
+    try:
+        search_url = "https://www.themealdb.com/api/json/v1/1/filter.php"
+        res = requests.get(search_url, params={"i": "mushrooms"}, timeout=10)
+        data = res.json()
+
+        meals = data.get("meals")
+        if not meals:
+            return None
+
+        meal = random.choice(meals)
+        meal_id = meal["idMeal"]
+
+        detail_url = "https://www.themealdb.com/api/json/v1/1/lookup.php"
+        detail_res = requests.get(detail_url, params={"i": meal_id}, timeout=10)
+        detail_data = detail_res.json()
+
+        meal_detail = detail_data["meals"][0]
+
+        ingredients = []
+        for i in range(1, 21):
+            ing = meal_detail.get(f"strIngredient{i}")
+            qty = meal_detail.get(f"strMeasure{i}")
+            if ing and ing.strip():
+                ingredients.append(f"{qty.strip()} {ing.strip()}")
+
+        return {
+            "name": meal_detail["strMeal"],
+            "category": meal_detail["strCategory"],
+            "area": meal_detail["strArea"],
+            "instructions": meal_detail["strInstructions"],
+            "ingredients": ingredients,
+            "image": meal_detail["strMealThumb"],
+            "source": meal_detail.get("strSource") or "https://www.themealdb.com"
+        }
+
+    except Exception as e:
+        print(f"Erreur recette TheMealDB: {e}")
+        return None
