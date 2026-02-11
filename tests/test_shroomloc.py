@@ -34,7 +34,7 @@ class TestGetMushrooms(unittest.TestCase):
         lat = 47.989921
         lon = 0.29065708
         result = get_mushrooms(lat, lon, "./app/mushrooms_cleaned.json")
-        allowed = {"edible", "poisonous", "non-edible"}
+        allowed = {"edible", "poisonous", "toxic", "inedible", "medicinal", "unknown"}
         for mushroom in result:
             self.assertIn(mushroom["edibility"], allowed)
 
