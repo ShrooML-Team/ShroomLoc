@@ -276,18 +276,9 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
             })
 
 
-    else:
-        fallback_species = "Amanita muscaria"
-        image_url = get_mushroom_image(fallback_species)
-        api_data.append({
-            "scientific_name": champ["scientific_name"],
-            "common_name": champ["common_name"],
-            "edibility": champ["edibility"],
-            "toxicity": champ["toxicity"],
-            "psychoactive": champ["psychoactive"],
-            "image_url": image_url,
-            "recipe": recipe
-        })
+    if not filtered:
+        return []
+
     
     return api_data
 
