@@ -6,7 +6,7 @@ Ce guide explique comment déployer ShroomLoc sur Portainer en utilisant les fic
 
 - Portainer installé et configuré
 - Accès Docker sur le nœud cible
-- Fichiers : `docker-compose.yml` et `stack.env`
+- Fichier : `docker-compose.yml`
 
 ## 🚀 Déploiement
 
@@ -29,20 +29,11 @@ Ce guide explique comment déployer ShroomLoc sur Portainer en utilisant les fic
 
 ### 3. Variables d'environnement
 
-Dans la section **Environment variables**, vous pouvez :
+Dans la section **Environment variables**, ajoutez les variables souhaitées :
 
-#### Option A : Upload du fichier stack.env
-1. Cliquez sur **Load variables from .env file**
-2. Uploadez le fichier `stack.env`
-
-#### Option B : Configuration manuelle
-Ajoutez les variables principales :
 ```
 IMAGE_TAG=latest
-HOST_PORT=8000
-API_PORT=8000
-PYTHONDONTWRITEBYTECODE=1
-PYTHONUNBUFFERED=1
+HOST_PORT=63001
 ```
 
 ### 4. Variables configurables
