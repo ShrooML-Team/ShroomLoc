@@ -103,6 +103,17 @@ CANONICAL_HABITATS = {
     "forêt"
 }
 
+HABITAT_COMPAT = {
+    "forêt de feuillus": ["forêt", "forêt mixte", "lisière"],
+    "forêt de conifères": ["forêt", "forêt mixte", "lisière"],
+    "forêt mixte": ["forêt", "forêt de feuillus", "forêt de conifères", "lisière"],
+    "lisière": ["forêt", "forêt de feuillus", "forêt de conifères", "forêt mixte"],
+    "bois mort": ["forêt", "forêt de feuillus", "forêt de conifères", "forêt mixte"],
+    "prairie": ["prairie", "lisière"],
+    "zones urbaines": ["zones urbaines", "lisière"],
+}
+
+
 def determine_biotope(temperature, humidity, season):
     """
     Determine a likely biotope based on temperature, humidity, and season.
@@ -111,26 +122,20 @@ def determine_biotope(temperature, humidity, season):
     param humidity: Current humidity
     param season: Current season (e.g., 'spring', 'summer', 'autumn', 'winter')
     """
-    if humidity >= 75 and temperature <= 15:
-        return random.choice(["bois mort", "lisière"])
-    
-    elif 15 <= temperature <= 25 and 50 <= humidity <= 75:
-        return "forêt de conifères"
-    
-    elif season in ["spring", "autumn"] and 50 <= humidity <= 80:
+    if season == "spring":
+        if humidity > 70:
+            return "forêt de feuillus"
+        else:
+            return "lisière"
+    if season == "winter":
+        return "bois mort"
+    if season == "summer":
+        if temperature > 25:
+            return "prairie"
+        return "forêt mixte"
+    if season == "autumn":
         return "forêt de feuillus"
-    
-    elif temperature > 20 and humidity < 70:
-        return "prairie"
-    
-    return random.choice([
-        "forêt de feuillus",
-        "forêt de conifères",
-        "forêt mixte",
-        "prairie",
-        "lisière",
-        "bois mort"
-    ])
+
 
 def refine_biotope_osm(lat, lon):
     """
@@ -154,10 +159,15 @@ def refine_biotope_osm(lat, lon):
             data = response.json()
             for element in data.get("elements", []):
                 tags = element.get("tags", {})
-                if tags.get("landuse") == "forest" or tags.get("natural") == "forest":
+                if tags.get("natural") in ["wood", "forest"]:
                     biotope_candidates.append("forêt")
-                elif tags.get("landuse") == "meadow":
+                elif tags.get("landuse") in ["forest", "wood"]:
+                    biotope_candidates.append("forêt")
+                elif tags.get("landuse") in ["meadow", "grassland", "pasture"]:
                     biotope_candidates.append("prairie")
+                elif tags.get("landuse") in ["residential", "commercial"]:
+                    biotope_candidates.append("zones urbaines")
+
     except requests.exceptions.RequestException:
         pass
 
@@ -191,7 +201,11 @@ def filter_mushrooms(champignons, temperature, humidity, season, biotope):
         temp_ok = champ["min_temp"] <= temperature <= champ["max_temp"]
         humidity_ok = champ["min_humidity"] <= humidity
         season_ok = season in champ["season"]
-        habitat_ok = biotope in champ["habitat"]
+        habitat_ok = any(
+            biotope == h or biotope in HABITAT_COMPAT.get(h, [])
+            for h in champ["habitat"]
+        )
+
         if temp_ok and humidity_ok and season_ok and habitat_ok:
             filtered.append(champ)
     return filtered
