@@ -24,6 +24,14 @@ jobs:
               with:
                   python-version: "3.12"
 
+            - name: Cache pip dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ~/.cache/pip
+                  key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pip-
+
             - name: Install dependencies
               run: |
                   python -m pip install --upgrade pip
@@ -101,19 +109,14 @@ jobs:
                   # Met à jour la valeur par défaut dans docker-compose.yml
                   sed -i "s|\${IMAGE_TAG:-.*}|\${IMAGE_TAG:-$TAG_NAME}|" docker-compose.yml
                   
-                  # Met aussi à jour stack.env pour cohérence
-                  sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$TAG_NAME/" stack.env
-                  
-                  echo "Fichiers mis à jour:"
-                  echo "- docker-compose.yml : $(grep 'IMAGE_TAG:-' docker-compose.yml)"
-                  echo "- stack.env : $(grep 'IMAGE_TAG=' stack.env)"
+                  echo "docker-compose.yml mis à jour : $(grep 'IMAGE_TAG:-' docker-compose.yml)"
                   
             - name: Commit updated files
               if: startsWith(github.ref, 'refs/tags/v')
               run: |
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
-                  git add docker-compose.yml stack.env
+                  git add docker-compose.yml
                   git commit -m "🤖 Auto-update to ${GITHUB_REF#refs/tags/}" || exit 0
                   git push origin HEAD:master || echo "Pas de changements à pousser"
               env:
@@ -124,7 +127,6 @@ jobs:
                   echo "🚀 Image Docker déployée avec succès!"
                   echo "📦 Registry: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
                   echo "🏷️  Tag utilisé: ${GITHUB_REF#refs/tags/}"
-                  echo "📝 stack.env mis à jour automatiquement"
 
                   # Ici vous pouvez ajouter des steps pour déployer sur votre infrastructure
                   # Par exemple: kubectl, docker-compose sur un serveur, etc.
@@ -150,6 +152,9 @@ jobs:
             contents: write
 
         steps:
+            - name: Set lowercase repository name
+              run: echo "REPO_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
             - name: Create GitHub Release
               uses: softprops/action-gh-release@v1
               with:
@@ -159,8 +164,8 @@ jobs:
 
                     📦 **Image Docker disponible :**
                     ```bash
-                    docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-                    docker pull ghcr.io/${{ github.repository }}:latest
+                    docker pull ghcr.io/${{ env.REPO_LOWER }}:${{ github.ref_name }}
+                    docker pull ghcr.io/${{ env.REPO_LOWER }}:latest
                     ```
 
                     🔄 **Changements inclus dans cette version :**
