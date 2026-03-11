@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+from unittest.mock import patch, MagicMock
 
 # Ajouter le répertoire parent au path pour permettre l'import d'app
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -10,15 +11,55 @@ from app.shroomloc import get_mushrooms
 class TestGetMushrooms(unittest.TestCase):
     """Unit tests for the get_mushrooms function."""
 
-    def test_get_mushrooms_returns_list(self):
+    @patch('app.shroomloc.get_weather')
+    @patch('app.shroomloc.get_season')
+    @patch('app.shroomloc.refine_biotope_osm')
+    @patch('app.shroomloc.determine_biotope')
+    @patch('app.shroomloc.filter_mushrooms')
+    @patch('app.shroomloc.get_mushroom_image')
+    def test_get_mushrooms_returns_list(self, mock_image, mock_filter, mock_biotope, mock_osm, mock_season, mock_weather):
         """Test that get_mushrooms returns a list."""
+        mock_weather.return_value = (15, 65)
+        mock_season.return_value = "autumn"
+        mock_osm.return_value = "forest"
+        mock_filter.return_value = [
+            {
+                "scientific_name": "Amanita muscaria",
+                "common_name": "Fly Agaric",
+                "edibility": "poisonous",
+                "toxicity": "high",
+                "psychoactive": True
+            }
+        ]
+        mock_image.return_value = "http://example.com/image.jpg"
+        
         lat = 47.989921
         lon = 0.29065708
         result = get_mushrooms(lat, lon, "./app/mushrooms_cleaned.json")
         self.assertIsInstance(result, list)
 
-    def test_get_mushrooms_items_structure(self):
+    @patch('app.shroomloc.get_weather')
+    @patch('app.shroomloc.get_season')
+    @patch('app.shroomloc.refine_biotope_osm')
+    @patch('app.shroomloc.determine_biotope')
+    @patch('app.shroomloc.filter_mushrooms')
+    @patch('app.shroomloc.get_mushroom_image')
+    def test_get_mushrooms_items_structure(self, mock_image, mock_filter, mock_biotope, mock_osm, mock_season, mock_weather):
         """Test that each mushroom has the expected structure."""
+        mock_weather.return_value = (15, 65)
+        mock_season.return_value = "autumn"
+        mock_osm.return_value = "forest"
+        mock_filter.return_value = [
+            {
+                "scientific_name": "Amanita muscaria",
+                "common_name": "Fly Agaric",
+                "edibility": "poisonous",
+                "toxicity": "high",
+                "psychoactive": True
+            }
+        ]
+        mock_image.return_value = "http://example.com/image.jpg"
+        
         lat = 47.989921
         lon = 0.29065708
         result = get_mushrooms(lat, lon, "./app/mushrooms_cleaned.json")
@@ -29,8 +70,28 @@ class TestGetMushrooms(unittest.TestCase):
         self.assertIn("edibility", mushroom)
         self.assertIn("image_url", mushroom)
 
-    def test_get_mushrooms_edibility_values(self):
+    @patch('app.shroomloc.get_weather')
+    @patch('app.shroomloc.get_season')
+    @patch('app.shroomloc.refine_biotope_osm')
+    @patch('app.shroomloc.determine_biotope')
+    @patch('app.shroomloc.filter_mushrooms')
+    @patch('app.shroomloc.get_mushroom_image')
+    def test_get_mushrooms_edibility_values(self, mock_image, mock_filter, mock_biotope, mock_osm, mock_season, mock_weather):
         """Test that the edibility field has valid values."""
+        mock_weather.return_value = (15, 65)
+        mock_season.return_value = "autumn"
+        mock_osm.return_value = "forest"
+        mock_filter.return_value = [
+            {
+                "scientific_name": "Amanita muscaria",
+                "common_name": "Fly Agaric",
+                "edibility": "poisonous",
+                "toxicity": "high",
+                "psychoactive": True
+            }
+        ]
+        mock_image.return_value = "http://example.com/image.jpg"
+        
         lat = 47.989921
         lon = 0.29065708
         result = get_mushrooms(lat, lon, "./app/mushrooms_cleaned.json")

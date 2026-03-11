@@ -280,13 +280,13 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
         fallback_species = "Amanita muscaria"
         image_url = get_mushroom_image(fallback_species)
         api_data.append({
-            "scientific_name": fallback_species,
-            "common_name": "Fly Agaric",
-            "edibility": "poisonous",
-            "toxicity": "high",
-            "psychoactive": True,
+            "scientific_name": champ["scientific_name"],
+            "common_name": champ["common_name"],
+            "edibility": champ["edibility"],
+            "toxicity": champ["toxicity"],
+            "psychoactive": champ["psychoactive"],
             "image_url": image_url,
-            "recipe": None
+            "recipe": recipe
         })
     
     return api_data
@@ -310,19 +310,26 @@ def get_all_mushrooms(json_path="app/mushrooms_cleaned.json"):
 def get_mushroom_details_by_name(scientific_name, json_path="app/mushrooms_cleaned.json"):
     """
     Returns the details of a mushroom given its scientific name.
-    param scientific_name: Scientific name of the mushroom
-    param json_path: Path to the cleaned mushrooms JSON file
+    Adds an image URL and a recipe if the mushroom is edible.
     """
     with open(json_path, "r", encoding="utf-8") as f:
         champignons = json.load(f)
     
     for champ in champignons:
         if champ["scientific_name"].lower() == scientific_name.lower():
+            
             image_url = get_mushroom_image(champ["scientific_name"])
             champ["image_url"] = image_url
+
+            if champ["edibility"] == "edible":
+                champ["recipe"] = get_mushroom_recipe()
+            else:
+                champ["recipe"] = None
+
             return champ
     
     return None
+
 
 # ----------------------------------------
 # 10. Get meals for a given mushroom 
