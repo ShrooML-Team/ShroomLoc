@@ -280,13 +280,13 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
         fallback_species = "Amanita muscaria"
         image_url = get_mushroom_image(fallback_species)
         api_data.append({
-            "scientific_name": champ["scientific_name"],
-            "common_name": champ["common_name"],
-            "edibility": champ["edibility"],
-            "toxicity": champ["toxicity"],
-            "psychoactive": champ["psychoactive"],
+            "scientific_name": fallback_species,
+            "common_name": "Fly Agaric",
+            "edibility": "poisonous",
+            "toxicity": "high",
+            "psychoactive": True,
             "image_url": image_url,
-            "recipe": recipe
+            "recipe": None
         })
     
     return api_data
