@@ -307,7 +307,41 @@ def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
 
     # 1. Vérifier si les coordonnées sont dans l'eau
     if is_water(lat, lon):
-        return []
+        with open(file, "r", encoding="utf-8") as f:
+            champignons = json.load(f)
+
+        aquatics = [
+            champ for champ in champignons
+            if champ["scientific_name"].lower() == "psathyrella aquatica"
+        ]
+
+        temperature, humidity = get_weather(lat, lon)
+        season = get_season()
+
+        filtered = [
+            champ for champ in aquatics
+            if champ["min_temp"] <= temperature <= champ["max_temp"]
+            and champ["min_humidity"] <= humidity
+            and season in champ["season"]
+        ]
+
+        api_data = []
+        for champ in filtered:
+            image_url = get_mushroom_image(champ["scientific_name"])
+            recipe = get_mushroom_recipe() if champ["edibility"] == "edible" else None
+
+            api_data.append({
+                "scientific_name": champ["scientific_name"],
+                "common_name": champ["common_name"],
+                "edibility": champ["edibility"],
+                "toxicity": champ["toxicity"],
+                "psychoactive": champ["psychoactive"],
+                "image_url": image_url,
+                "recipe": recipe
+            })
+
+        return api_data
+
 
     # 2. Récupérer météo + saison
     temperature, humidity = get_weather(lat, lon)
