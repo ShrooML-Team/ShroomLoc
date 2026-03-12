@@ -250,8 +250,8 @@
       "forêt de conifères",
       "forêt mixte"
     ],
-    "notes": "Comestible (débat sur toxicité longue).",
-    "toxicity": "none",
+    "notes": "N'est plus considéré comestible.",
+    "toxicity": "toxic",
     "psychoactive": false
   },
   {
@@ -702,7 +702,7 @@
       "forêt de feuillus"
     ],
     "notes": "Champignon médicinal, non comestible cru.",
-    "toxicity": "toxic",
+    "toxicity": "none",
     "psychoactive": false
   },
   {
@@ -1389,7 +1389,7 @@
   {
     "scientific_name": "Rubroboletus satanas",
     "common_name": "Bolet satan",
-    "edibility": "toxic",
+    "edibility": "inedible",
     "season": [
       "summer",
       "autumn"
@@ -1665,7 +1665,7 @@
     "min_humidity": 60,
     "habitat": ["bois mort"],
     "notes": "Utilisé historiquement comme amadou.",
-    "toxicity": "none",
+    "toxicity": "not_toxic_not_edible",
     "psychoactive": false
   },
   {
