@@ -113,6 +113,25 @@ HABITAT_COMPAT = {
     "zones urbaines": ["zones urbaines", "lisière"],
 }
 
+def is_water(lat, lon):
+    overpass_url = "http://overpass-api.de/api/interpreter"
+    query = f"""
+    [out:json];
+    (
+      way(around:100,{lat},{lon})["natural"="water"];
+      way(around:100,{lat},{lon})["water"];
+      relation(around:100,{lat},{lon})["natural"="water"];
+      relation(around:100,{lat},{lon})["water"];
+    );
+    out center;
+    """
+    try:
+        res = requests.get(overpass_url, params={"data": query}, timeout=10)
+        data = res.json()
+        return len(data.get("elements", [])) > 0
+    except:
+        return False
+
 
 def determine_biotope(temperature, humidity, season):
     """
@@ -255,46 +274,48 @@ def get_mushroom_image(species_name="Amanita muscaria"):
 def get_mushrooms(lat, lon, file="mushrooms_cleaned.json"):
     """
     Returns a list of mushrooms filtered by environmental conditions at the given latitude and longitude.
-    param lat: Latitude of the location
-    param lon: Longitude of the location
-    param file: Path to the cleaned mushrooms JSON file
     """
+
+    # 1. Vérifier si les coordonnées sont dans l'eau
+    if is_water(lat, lon):
+        return []
+
+    # 2. Récupérer météo + saison
     temperature, humidity = get_weather(lat, lon)
     season = get_season()
+
+    # 3. Déterminer biotope via OSM
     biotope = refine_biotope_osm(lat, lon)
+
+    # 4. Fallback si OSM ne renvoie rien
     if biotope is None:
         biotope = determine_biotope(temperature, humidity, season)
 
+    # 5. Charger les champignons
     with open(file, "r", encoding="utf-8") as f:
         champignons = json.load(f)
-    
+
+    # 6. Filtrer
     filtered = filter_mushrooms(champignons, temperature, humidity, season, biotope)
-    
+
+    # 7. Construire la réponse API
     api_data = []
-    if filtered:
-        for champ in filtered:
-            image_url = get_mushroom_image(champ["scientific_name"])
+    for champ in filtered:
+        image_url = get_mushroom_image(champ["scientific_name"])
+        recipe = get_mushroom_recipe() if champ["edibility"] == "edible" else None
 
-            recipe = None
-            if champ["edibility"] == "edible":
-                recipe = get_mushroom_recipe()
+        api_data.append({
+            "scientific_name": champ["scientific_name"],
+            "common_name": champ["common_name"],
+            "edibility": champ["edibility"],
+            "toxicity": champ["toxicity"],
+            "psychoactive": champ["psychoactive"],
+            "image_url": image_url,
+            "recipe": recipe
+        })
 
-            api_data.append({
-                "scientific_name": champ["scientific_name"],
-                "common_name": champ["common_name"],
-                "edibility": champ["edibility"],
-                "toxicity": champ["toxicity"],
-                "psychoactive": champ["psychoactive"],
-                "image_url": image_url,
-                "recipe": recipe
-            })
-
-
-    if not filtered:
-        return []
-
-    
     return api_data
+
 
 # ----------------------------------------
 # 8. Preparation of cleaned JSON (normalization of habitats)
