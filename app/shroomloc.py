@@ -118,19 +118,48 @@ def is_water(lat, lon):
     query = f"""
     [out:json];
     (
-      way(around:100,{lat},{lon})["natural"="water"];
-      way(around:100,{lat},{lon})["water"];
-      relation(around:100,{lat},{lon})["natural"="water"];
-      relation(around:100,{lat},{lon})["water"];
+      way(around:5000,{lat},{lon})["landuse"];
+      way(around:5000,{lat},{lon})["natural"];
+      relation(around:5000,{lat},{lon})["landuse"];
+      relation(around:5000,{lat},{lon})["natural"];
     );
-    out center;
+    out tags;
     """
     try:
-        res = requests.get(overpass_url, params={"data": query}, timeout=10)
+        res = requests.get(overpass_url, params={"data": query}, timeout=15)
         data = res.json()
-        return len(data.get("elements", [])) > 0
-    except:
+        elements = data.get("elements", [])
+
+        if not elements:
+            return True
+
+        has_water = False
+        has_land = False
+
+        for el in elements:
+            tags = el.get("tags", {})
+            natural = tags.get("natural")
+            landuse = tags.get("landuse")
+            water = tags.get("water")
+
+            if natural == "water" or water is not None:
+                has_water = True
+
+            if natural in ["wood", "forest", "scrub", "grassland"] or \
+               landuse in ["forest", "residential", "meadow", "farmland", "industrial", "commercial"]:
+                has_land = True
+
+        if has_water and not has_land:
+            return True
+
+        if has_land and not has_water:
+            return False
+
         return False
+
+    except Exception:
+        return False
+
 
 
 def determine_biotope(temperature, humidity, season):
