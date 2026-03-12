@@ -687,7 +687,7 @@
   {
     "scientific_name": "Inonotus obliquus",
     "common_name": "Chaga",
-    "edibility": "inedible",
+    "edibility": "medicinal",
     "season": [
       "spring",
       "summer",
@@ -726,7 +726,7 @@
   {
     "scientific_name": "Ganoderma lucidum",
     "common_name": "Reishi",
-    "edibility": "inedible",
+    "edibility": "medicinal",
     "season": [
       "summer",
       "autumn"
@@ -1057,7 +1057,7 @@
   {
     "scientific_name": "Trametes versicolor",
     "common_name": "Polypore versicolore",
-    "edibility": "inedible",
+    "edibility": "medicinal",
     "season": [
       "spring",
       "summer",
@@ -1658,7 +1658,7 @@
   {
     "scientific_name": "Fomes fomentarius",
     "common_name": "Amadouvier",
-    "edibility": "inedible",
+    "edibility": "medicinal",
     "season": ["spring", "summer", "autumn", "winter"],
     "min_temp": -10,
     "max_temp": 25,
@@ -1705,6 +1705,32 @@
     "habitat": ["cours d'eau", "zones submergées"],
     "notes": "Seul champignon connu à fructifier sous l'eau.",
     "toxicity": "unknown",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Schizophyllum commune",
+    "common_name": "Schizophylle commun",
+    "edibility": "medicinal",
+    "season": ["spring", "summer", "autumn", "winter"],
+    "min_temp": 0,
+    "max_temp": 30,
+    "min_humidity": 60,
+    "habitat": ["bois mort", "forêt de feuillus", "forêt mixte"],
+    "notes": "Champignon très répandu, coriace et non comestible, utilisé en médecine traditionnelle.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Phellinus igniarius",
+    "common_name": "Polypore ignié",
+    "edibility": "medicinal",
+    "season": ["spring", "summer", "autumn", "winter"],
+    "min_temp": -10,
+    "max_temp": 25,
+    "min_humidity": 60,
+    "habitat": ["bois mort", "forêt de feuillus"],
+    "notes": "Polypore dur et non comestible, utilisé en médecine traditionnelle.",
+    "toxicity": "none",
     "psychoactive": false
   }
 ]
