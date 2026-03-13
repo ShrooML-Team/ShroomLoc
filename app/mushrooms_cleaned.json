@@ -2033,6 +2033,97 @@
     "psychoactive": false
   },
   {
+    "scientific_name": "Ophiocordyceps unilateralis",
+    "common_name": "Champignon zombie de la fourmi",
+    "edibility": "inedible",
+    "season": ["summer"],
+    "min_temp": 20,
+    "max_temp": 30,
+    "min_humidity": 80,
+    "habitat": ["forêt tropicale"],
+    "notes": "Parasite les fourmis et modifie leur comportement avant de fructifier.",
+    "toxicity": "toxic",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Phallus indusiatus",
+    "common_name": "Satyre voilé",
+    "edibility": "inedible",
+    "season": ["summer", "autumn"],
+    "min_temp": 18,
+    "max_temp": 30,
+    "min_humidity": 80,
+    "habitat": ["forêt tropicale", "sol riche"],
+    "notes": "Produit un voile en dentelle spectaculaire, odeur forte.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Mycena chlorophos",
+    "common_name": "Mycène bioluminescent",
+    "edibility": "inedible",
+    "season": ["summer"],
+    "min_temp": 20,
+    "max_temp": 28,
+    "min_humidity": 85,
+    "habitat": ["forêt tropicale", "bois mort"],
+    "notes": "Émet une lumière verte visible la nuit.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Tremella mesenterica",
+    "common_name": "Gelée de sorcière",
+    "edibility": "inedible",
+    "season": ["autumn", "winter"],
+    "min_temp": 5,
+    "max_temp": 20,
+    "min_humidity": 80,
+    "habitat": ["bois mort"],
+    "notes": "Gelée jaune vif, parasite d'autres champignons.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Entomophthora muscae",
+    "common_name": "Champignon tueur de mouches",
+    "edibility": "inedible",
+    "season": ["summer", "autumn"],
+    "min_temp": 15,
+    "max_temp": 25,
+    "min_humidity": 75,
+    "habitat": ["zones humides", "prairie"],
+    "notes": "Infecte les mouches et projette ses spores depuis leur corps.",
+    "toxicity": "toxic",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Exidia nucleata",
+    "common_name": "Gelée œil-de-poisson",
+    "edibility": "inedible",
+    "season": ["autumn", "winter"],
+    "min_temp": 0,
+    "max_temp": 15,
+    "min_humidity": 80,
+    "habitat": ["bois mort"],
+    "notes": "Gelée translucide avec un noyau blanc rappelant un œil.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
+    "scientific_name": "Cordyceps militaris",
+    "common_name": "Cordyceps militaire",
+    "edibility": "medicinal",
+    "season": ["summer", "autumn"],
+    "min_temp": 15,
+    "max_temp": 25,
+    "min_humidity": 70,
+    "habitat": ["sol", "forêt"],
+    "notes": "Parasite les larves d'insectes, utilisé en médecine traditionnelle.",
+    "toxicity": "none",
+    "psychoactive": false
+  },
+  {
     "scientific_name": "Mutinus caninus",
     "common_name": "Mutin du chien",
     "edibility": "inedible",
@@ -2041,9 +2132,10 @@
     "max_temp": 28,
     "min_humidity": 75,
     "habitat": ["sol", "bois mort"],
-    "notes": "Petit phallus puant.",
+    "notes": "Petit phallus puant, proche des satyres.",
     "toxicity": "none",
     "psychoactive": false
   }
 ]
+
 
