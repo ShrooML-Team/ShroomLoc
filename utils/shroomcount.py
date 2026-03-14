@@ -57,26 +57,30 @@ def find_duplicates(mushrooms: List[Dict]) -> Dict[str, List[str]]:
 
 def categorize_by_edibility(mushrooms: List[Dict]) -> Dict[str, List[str]]:
     """
-    Categorize mushrooms by edibility.
-
-    Args:
-        mushrooms (List[Dict]): List of mushrooms.
-
-    Returns:
-        Dict[str, List[str]]: Keys 'edible' and 'non_edible' with lists of common names.
+    Categorize mushrooms by edibility: edible, medicinal, non_edible.
     """
-    categories = defaultdict(list)
+    categories = {
+        "edible": [],
+        "medicinal": [],
+        "non_edible": []
+    }
+
     for champ in mushrooms:
         edibility = champ.get("edibility", "unknown").lower()
-        common_name = champ.get("common_name", "N/A")
-        if edibility in ["edible", "comestible"]:
-            categories["edible"].append(common_name)
-        else:
-            categories["non_edible"].append(common_name)
+        name = champ.get("common_name", "N/A")
 
-    categories["edible"].sort()
-    categories["non_edible"].sort()
+        if edibility == "edible":
+            categories["edible"].append(name)
+        elif edibility == "medicinal":
+            categories["medicinal"].append(name)
+        else:
+            categories["non_edible"].append(name)
+
+    for key in categories:
+        categories[key].sort()
+
     return categories
+
 
 
 def main():
@@ -99,6 +103,10 @@ def main():
     categories = categorize_by_edibility(mushrooms)
     print("\nEdible mushrooms:")
     for name in categories["edible"]:
+        print(f"- {name}")
+
+    print("\nMedicinal mushrooms:")
+    for name in categories["medicinal"]:
         print(f"- {name}")
 
     print("\nNon-edible mushrooms (toxic or inedible):")
